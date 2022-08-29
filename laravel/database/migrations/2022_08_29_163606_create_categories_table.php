@@ -8,18 +8,19 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->string('id')->unique();
-            $table->string('email')->unique();
-            $table->string('name');
-            $table->string('password');
+            $table->string('title')->unique();
+            $table->string('userId');
             $table->timestamp('createdAt')->useCurrent();
             $table->timestamp('updatedAt')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('userId')->references('id')->on('users');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('categories');
     }
 };
